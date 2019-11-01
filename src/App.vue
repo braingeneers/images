@@ -4,7 +4,7 @@
     <label>uuid</label>
     <input v-model="uuid" placeholder="2019-10-31">
     <button v-on:click="$refs.images.load()">Load</button>
-    <Images ref="images" v-bind:uuid="uuid"/>
+    <Images ref="images" v-bind:uuid="uuid" v-bind:endpoint="endpoint"/>
   </div>
 </template>
 
@@ -18,7 +18,8 @@ export default {
   },
   data: function () {
     return {
-      uuid: "2019-10-31"
+      uuid: "2019-10-31",
+      endpoint: "https://s3.nautilus.optiputer.net/braingeneers/rcurrie/archive"
     }
   },
 }
