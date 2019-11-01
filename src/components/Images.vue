@@ -1,21 +1,11 @@
 <template>
   <div>
     <div>Images for {{ uuid }}</div>
-    <div>T: {{ curTimestamp }} Z: {{ curZ }}</div>
-    <ul id="timestamp-list">
-      <li v-for="t in manifest.captures" :key="t">
-        <button v-on:click="(event) => {curTimestamp = t}">Set new value</button>
-        {{ t }}
-      </li>
-    </ul>
-    <ul id="z-list">
-      <li v-for="z in manifest.stack_size" :key="z">
-        {{ z }}
-      </li>
-    </ul>
+    <div>T: {{ manifest.captures[curTimestampIndex] }} Z: {{ curZ }}</div>
     <ul id="url-list">
       <li v-for="s in manifest.num_stacks" :key="s">
-        <img :src="`${endpoint}/${uuid}/images/${curTimestamp}/${s-1}/${curZ}.jpg`" />
+        <img v-pan="onPan" 
+             :src="`${endpoint}/${uuid}/images/${manifest.captures[curTimestampIndex]}/${s-1}/${curZ}.jpg`"/>
       </li>
     </ul>
   </div>
@@ -27,9 +17,15 @@ export default {
   props: ["uuid", "endpoint"],
   data: function() {
     return {
-      manifest: {},
-      curTimestamp: "",
-      curZ: 0 
+      manifest: {
+        num_stacks: 0,
+        captures: [""]
+      },
+      curTimestampIndex: 0,
+      curZ: 0, 
+      startTimestampIndex: 0,
+      startZ: 0,
+      panning: false
     }
   },
   methods: {
@@ -39,13 +35,31 @@ export default {
         .then(stream => stream.json())
         .then(data => {
           this.manifest = data
-          this.curTimestamp = this.manifest.captures[0]
-          console.log(this.curTimestamp)
         })
         .catch(error => {
           console.log(error)
           alert("Unable to load experiment, does the uuid exist?")
         })
+    },
+    onPan(event) {
+      // 0 = none, 2 = left, 4 = right, 8 = up, 16 = down,
+      if (!this.panning) {
+        this.panning = true
+        this.startTimestampIndex = this.curTimestampIndex
+        this.startZ = this.curZ
+      } else if (event.isFinal) {
+        this.panning = false
+      } else if (event.direction == 2 || event.direction == 4) {
+        this.curTimestampIndex = Math.round( 
+          Math.min(Math.max(
+            this.startTimestampIndex + event.deltaX / 50,
+            0), this.manifest.captures.length - 1))
+      } else if (event.direction == 8 || event.direction == 16) {
+        this.curZ = Math.round( 
+          Math.min(Math.max(
+            this.startZ + event.deltaY / 50,
+            0), this.manifest.stack_size - 1))
+      }
     }
   },
 }
