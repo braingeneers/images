@@ -2,10 +2,11 @@
   <div>
     <div>Images for {{ uuid }}</div>
     <div>T: {{ manifest.captures[curTimestampIndex] }} Z: {{ curZ }}</div>
-    <ul id="url-list">
-      <li v-for="s in manifest.num_stacks" :key="s">
-        <img v-pan="onPan" 
-             :src="`${endpoint}/${uuid}/images/${manifest.captures[curTimestampIndex]}/${s-1}/${curZ}.jpg`"/>
+    <!-- Hard code as we can't determine from manifest row and column -->
+    <ul v-for="row in 4" :key="row">
+      <li v-for="col in 6" :key="row * 10 + col">
+        <img v-pan="onPan" class="capture"
+             :src="`${endpoint}/${uuid}/images/${manifest.captures[curTimestampIndex]}/cameraB${row}${col}/${curZ + 1}.jpg`"/>
       </li>
     </ul>
   </div>
@@ -18,7 +19,7 @@ export default {
   data: function() {
     return {
       manifest: {
-        num_stacks: 0,
+        stack_size: 0,
         captures: [""]
       },
       curTimestampIndex: 0,
@@ -79,5 +80,9 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.capture {
+  width: 100%;
 }
 </style>
