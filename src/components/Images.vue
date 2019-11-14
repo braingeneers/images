@@ -1,14 +1,16 @@
 <template>
   <div>
-    <div>Images for {{ uuid }}</div>
-    <div>T: {{ manifest.captures[curTimestampIndex] }} Z: {{ curZ }}</div>
-    <!-- Hard code as we can't determine from manifest row and column -->
-    <ul v-for="row in 4" :key="row">
-      <li v-for="col in 6" :key="row * 10 + col">
-        <img v-pan="onPan" class="capture"
-             :src="`${endpoint}/${uuid}/images/${manifest.captures[curTimestampIndex]}/cameraB${row}${col}/${curZ + 1}.jpg`"/>
-      </li>
-    </ul>
+    <template v-if="manifest.captures.length > 0">
+      <div>Images for {{ uuid }}</div>
+      <div>T: {{ manifest.captures[curTimestampIndex] }} Z: {{ curZ }}</div>
+      <!-- Hard code as we can't determine from manifest row and column -->
+      <ul v-for="row in 4" :key="row">
+        <li v-for="col in 6" :key="row * 10 + col">
+          <img v-pan="onPan" class="capture"
+               :src="`${endpoint}/${uuid}/images/${manifest.captures[curTimestampIndex]}/cameraB${row}${col}/${curZ + 1}.jpg`"/>
+        </li>
+      </ul>
+    </template>
   </div>
 </template>
 
@@ -20,7 +22,7 @@ export default {
     return {
       manifest: {
         stack_size: 0,
-        captures: [""]
+        captures: []
       },
       curTimestampIndex: 0,
       curZ: 0, 
