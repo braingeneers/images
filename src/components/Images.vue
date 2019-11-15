@@ -6,7 +6,7 @@
       <!-- Hard code as we can't determine from manifest row and column -->
       <ul v-for="row in 4" :key="row">
         <li v-for="col in 6" :key="row * 10 + col">
-          <img v-pan="onPan" class="capture"
+          <img v-pan="onPan" class="capture" @error="missing"
                :src="`${endpoint}/${uuid}/images/${manifest.captures[curTimestampIndex]}/cameraB${row}${col}/${curZ + 1}.jpg`"/>
         </li>
       </ul>
@@ -43,6 +43,10 @@ export default {
           console.log(error)
           alert("Unable to load experiment, does the uuid exist?")
         })
+    },
+    missing(event) {
+      console.log("Missing image", event.target.src)
+      event.target.src = require("../assets/missing.jpg")
     },
     onPan(event) {
       // 0 = none, 2 = left, 4 = right, 8 = up, 16 = down,
