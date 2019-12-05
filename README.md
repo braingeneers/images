@@ -23,3 +23,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### CORS
+To allow objects to be access cross domains
+aws --profile prp-braingeneers --endpoint https://s3.nautilus.optiputer.net s3api put-bucket-cors --bucket braingeneers --cors-configuration file://cors.json 
