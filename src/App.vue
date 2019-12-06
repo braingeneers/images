@@ -18,7 +18,7 @@ export default {
   },
   data: function () {
     return {
-      uuid: "Incubator-test-11-08",
+      uuid: "Incubator-2019-12-04",
       endpoint: "https://s3.nautilus.optiputer.net/braingeneers/archive"
     }
   },
