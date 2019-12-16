@@ -2,7 +2,6 @@
   <div>
     <template v-if="manifest.captures.length > 0">
       <div>Images for {{ uuid }}</div>
-      <div>T: {{ manifest.captures[curTimestampIndex] }} Z: {{ curZ }}</div>
       <!-- Hard code as we can't determine from manifest row and column -->
       <table>
         <tr v-for="row in 4" :key="row">
@@ -15,6 +14,7 @@
     </template>
     <template v-if="manifest.captures.length > 0">
       <div>Row: {{ curRow }} Col: {{ curCol }}</div>
+      <div>T: {{ manifest.captures[curTimestampIndex] }} Z: {{ curZ }}</div>
       <img v-pan="onPan" class="capture" @error="missing"
            :src="`${endpoint}/${uuid}/images/${manifest.captures[curTimestampIndex]}/cameraB${curRow}${curCol}/${curZ + 1}.jpg`"/>
     </template>
@@ -43,6 +43,7 @@ export default {
   methods: {
     load: function() {
       console.log("Loading...", this.uuid)
+      console.log(`${this.endpoint}/${this.uuid}/images/manifest.json`)
       fetch(`${this.endpoint}/${this.uuid}/images/manifest.json`)
         .then(stream => stream.json())
         .then(data => {
@@ -58,7 +59,6 @@ export default {
       event.target.src = require("../assets/missing.jpg")
     },
     onClick(event) {
-      console.log("Click!", event)
       this.curRow = event.target.dataset.row
       this.curCol = event.target.dataset.col
     },
@@ -73,12 +73,12 @@ export default {
       } else if (event.direction == 2 || event.direction == 4) {
         this.curTimestampIndex = Math.round( 
           Math.min(Math.max(
-            this.startTimestampIndex + event.deltaX / 50,
+            this.startTimestampIndex + event.deltaX / 25,
             0), this.manifest.captures.length - 1))
       } else if (event.direction == 8 || event.direction == 16) {
         this.curZ = Math.round( 
           Math.min(Math.max(
-            this.startZ + event.deltaY / 50,
+            this.startZ + event.deltaY / 25,
             0), this.manifest.stack_size - 1))
       }
     }
