@@ -7,7 +7,7 @@
         <tr v-for="row in 4" :key="row">
           <td v-for="col in 6" :key="row * 10 + col">
             <img v-on:click="onClick" class="capture" @error="missing" v-bind:data-row="row" v-bind:data-col="col"
-                 :src="`${endpoint}/${uuid}/images/${manifest.captures[0]}/cameraB${row}${col}/${0 + 1}.jpg`"/>
+                 :src="`${endpoint}/${uuid}/images/${manifest.captures[0]}/cameraC${row}${col}/${0 + 1}.jpg`"/>
           </td>
         </tr>
       </table>
@@ -16,7 +16,7 @@
       <div>Row: {{ curRow }} Col: {{ curCol }}</div>
       <div>T: {{ manifest.captures[curTimestampIndex] }} Z: {{ curZ }}</div>
       <img v-pan="onPan" class="capture" @error="missing"
-           :src="`${endpoint}/${uuid}/images/${manifest.captures[curTimestampIndex]}/cameraB${curRow}${curCol}/${curZ + 1}.jpg`"/>
+           :src="`${endpoint}/${uuid}/images/${manifest.captures[curTimestampIndex]}/cameraC${curRow}${curCol}/${curZ + 1}.jpg`"/>
     </template>
   </div>
 </template>
