@@ -2,7 +2,8 @@
   <div id="app">
     <img alt="Braingeneers Imaging" src="./assets/logo.png">
     <label>uuid</label>
-    <input v-model="uuid" placeholder="Incubator-test-11-08">
+    <input v-model="uuid" placeholder="Ryan-3-2020-02-04">
+    <label>group identifier</label>
     <input v-model="groupID" placeholder="C">	
     <button v-on:click="$refs.images.load()">Load</button>
     <Images ref="images" v-bind:groupID="groupID" v-bind:uuid="uuid" v-bind:endpoint="endpoint"/>
@@ -19,7 +20,7 @@ export default {
   },
   data: function () {
     return {
-      uuid: "2-Incubator-2019-12-04",
+      uuid: "Ryan-3-2020-02-04",
       groupID: "C",
       endpoint: "https://s3.nautilus.optiputer.net/braingeneers/archive"
     }

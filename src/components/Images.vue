@@ -24,7 +24,7 @@
 <script>
 export default {
   name: "Images",
-  props: ["uuid", "endpoint"],
+  props: ["uuid","groupID", "endpoint"],
   data: function() {
     return {
       manifest: {
