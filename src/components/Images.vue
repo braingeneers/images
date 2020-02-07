@@ -14,9 +14,34 @@
     </template>
     <template v-if="manifest.captures.length > 0">
       <div>Row: {{ curRow }} Col: {{ curCol }}</div>
-      <div>T: {{ manifest.captures[curTimestampIndex] }} Z: {{ curZ }}</div>
-      <img v-pan="onPan" class="capture" @error="missing"
-           :src="`${endpoint}/${uuid}/images/${manifest.captures[curTimestampIndex]}/camera${groupID}${curRow}${curCol}/${curZ + 1}.jpg`"/>
+      <div style="padding-top: 1vw">
+           <button id="ArrowLeft" type="button" v-on:click="OnArrowLeftClick">
+                  Previous Timestamp
+           </button>
+           Current Timestamp: {{this.curTimestampIndex+1}}/{{ this.manifest.captures.length}}
+           <button id="ArrowRight" type="button" v-on:click="OnArrowRightClick">
+                  Next Timestamp
+           </button>
+      </div>
+      <div style="padding-top: 1vw">
+          
+          T: {{ manifest.captures[curTimestampIndex] }} Z: {{ curZ+1 }}/{{this.manifest.stack_size-1}}
+          <button v-on:click="OnPreviousFocalViewClick">
+              Previous Focal View
+          </button>
+
+          <button v-on:click="OnNextFocalViewClick" >
+              Next Focal View
+          </button>
+      </div>
+      <div style="position:relative;">
+          
+          
+          <img style = "max-width:50%; max-height:50%;" v-pan="onPan" class="capture" @error="missing"
+               :src="`${endpoint}/${uuid}/images/${manifest.captures[curTimestampIndex]}/camera${groupID}${curRow}${curCol}/${curZ + 1}.jpg`" />
+          
+          
+      </div>
     </template>
   </div>
 </template>
@@ -61,7 +86,51 @@ export default {
     onClick(event) {
       this.curRow = event.target.dataset.row
       this.curCol = event.target.dataset.col
-    },
+      },
+      OnArrowRightClick() {
+          console.log()
+          if (this.curTimestampIndex < this.manifest.captures.length-1) {
+              this.startTimestampIndex = this.curTimestampIndex
+              this.curTimestampIndex = this.startTimestampIndex + 1
+              console.log("this.startTimestampIndex: "+this.startTimestampIndex)
+        }
+        else {
+            console.log("At max timestamp")
+            console.log("this.curTimestampIndex: "+ this.curTimestampIndex)
+        }
+      },
+      OnArrowLeftClick() {
+          console.log()
+          if (this.curTimestampIndex > 0) {
+              this.startTimestampIndex = this.curTimestampIndex
+              this.curTimestampIndex = this.startTimestampIndex - 1
+              console.log("this.startTimestampIndex: "+this.startTimestampIndex)
+        }
+        else {
+            console.log("At minimum timestamp")
+            console.log("this.curTimestampIndex: "+ this.curTimestampIndex)
+        }
+      },
+      OnPreviousFocalViewClick() {
+          if (this.curZ > 0) {
+          console.log("this.curZ: " + this.curZ)
+          this.startZ = this.curZ
+          this.curZ = this.startZ - 1
+          
+          } else {
+              console.log("At minimum focal length")
+          }
+      },
+      OnNextFocalViewClick() {
+          if (this.curZ < this.manifest.stack_size-1) {
+          console.log("this.curZ: " + this.curZ)
+          this.startZ = this.curZ
+          this.curZ = this.startZ + 1
+          
+          } else {
+              console.log("At maximum focal length")
+          }
+      },
     onPan(event) {
       // 0 = none, 2 = left, 4 = right, 8 = up, 16 = down,
       if (!this.panning) {
@@ -74,7 +143,9 @@ export default {
         this.curTimestampIndex = Math.round( 
           Math.min(Math.max(
             this.startTimestampIndex + event.deltaX / 25,
-            0), this.manifest.captures.length - 1))
+              0), this.manifest.captures.length - 1))
+          /*var printMe = this.startTimestampIndex + event.deltaX / 25*/
+          console.log("this.curTimestampIndex: " + this.curTimestampIndex)
       } else if (event.direction == 8 || event.direction == 16) {
         this.curZ = Math.round( 
           Math.min(Math.max(
@@ -103,6 +174,7 @@ a {
 }
 
 .capture {
-  width: 100%;
+  width: 60%;
 }
+
 </style>
