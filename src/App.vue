@@ -4,7 +4,7 @@
     <label>uuid</label>
     <input v-model="uuid" placeholder="Ryan-4-2020-02-04">
     <label>group identifier</label>
-    <input v-model="groupID" placeholder="C">	
+    <input v-model="groupID" placeholder="C">
     <button v-on:click="$refs.images.load()">Load</button>
     <Images ref="images" v-bind:groupID="groupID" v-bind:uuid="uuid" v-bind:endpoint="endpoint"/>
   </div>
@@ -22,7 +22,7 @@ export default {
     return {
       uuid: "Ryan-4-2020-02-04",
       groupID: "C",
-      endpoint: "https://s3.nautilus.optiputer.net/braingeneers/archive"
+      endpoint: "https://s3.nautilus.optiputer.net/braingeneers/imaging/"
     }
   },
 }
