@@ -7,9 +7,9 @@ Install node/npm and then:
 npm install
 ```
 Make sure your dependencies match (e.g., 'npm i @vue/cli-plugin-babel@4.0.5' and so on)
-
+```
 npm list --depth=0
-
+```
 
 images@0.1.0 yourfilepath/images
 * @vue/cli-plugin-babel@4.0.5
@@ -40,5 +40,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### CORS
 To allow objects to be access cross domains
-aws --profile prp-braingeneers --endpoint https://s3.nautilus.optiputer.net s3api put-bucket-cors --bucket braingeneers --cors-configuration file://cors.json 
-
+aws --profile prp-braingeneers --endpoint https://s3.nautilus.optiputer.net s3api put-bucket-cors --bucket braingeneers --cors-configuration file://cors.json
