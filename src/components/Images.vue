@@ -73,6 +73,7 @@ export default {
         .then(stream => stream.json())
         .then(data => {
           this.manifest = data
+          this.curTimestampIndex = this.manifest.captures.length -1
         })
         .catch(error => {
           console.log(error)
