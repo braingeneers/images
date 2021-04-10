@@ -25,7 +25,7 @@
       </div>
       <div style="padding-top: 1vw">
           
-          T: {{ manifest.captures[curTimestampIndex] }} Z: {{ curZ+1 }}/{{this.manifest.stack_size-1}}
+          T: {{ manifest.captures[curTimestampIndex] }} Z: {{ curZ+1 }}/{{this.manifest.stack_size}}
           <button v-on:click="OnPreviousFocalViewClick">
               Previous Focal View
           </button>
