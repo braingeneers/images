@@ -7,7 +7,7 @@
         <tr v-for="row in 4" :key="row">
           <td v-for="col in 6" :key="row * 10 + col">
             <img v-on:click="onClick" class="capture" @error="missing" v-bind:data-row="row" v-bind:data-col="col"
-                 :src="`${endpoint}/${uuid}/images/${manifest.captures[0]}/camera${groupID}${row}${col}/${0 + 1}.jpg`"/>
+                 :src="`${endpoint}/${uuid}/images/${manifest.captures[manifest.captures.length - 1]}/camera${groupID}${row}${col}/${0 + 1}.jpg`"/>
           </td>
         </tr>
       </table>
