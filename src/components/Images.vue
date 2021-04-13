@@ -1,7 +1,7 @@
 <template>
   <div>
     <template v-if="manifest.captures.length > 0">
-      <div>Images for {{ uuid }}</div>
+      <div>Latest Images for {{ uuid }}</div>
       <!-- Hard code as we can't determine from manifest row and column -->
       <table>
         <tr v-for="row in 4" :key="row">

@@ -5,8 +5,8 @@
     <input v-model="uuid" placeholder="Ryan-4-2020-02-04">
     <label>group identifier</label>
     <input v-model="groupID" placeholder="C">
-    <button v-on:click="$refs.images.load()">Load</button>
-    <button v-on:click="$refs.images2.load()">Load Begining</button>
+    <button v-on:click="$refs.images.load()">Load Latest</button>
+    <button v-on:click="$refs.images2.load()">Load Beginning</button>
     <Images ref="images" v-bind:groupID="groupID" v-bind:uuid="uuid" v-bind:endpoint="endpoint"/>
     <Images2 ref="images2" v-bind:groupID="groupID" v-bind:uuid="uuid" v-bind:endpoint="endpoint"/>
   </div>
