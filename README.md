@@ -24,11 +24,13 @@ images@0.1.0 yourfilepath/images
 * vue@2.6.10
 * vue-template-compiler@2.6.10
 
+If you run into a missing package for babel on first compile see: https://stackoverflow.com/questions/52087421/module-build-failed-from-node-modules-babel-loader-lib-index-js-typeerror
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve
 ```
-Open a browser to http://localhost:8080/images/ to view. Changes to the source will auto reload.
+Open a browser to http://10.0.0.175:8080/images/ to view. Changes to the source will auto reload.
 
 ### Compiles and minifies and pushes to GitHub pages for production
 ```

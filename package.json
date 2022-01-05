@@ -9,6 +9,8 @@
     "deploy": "npm run build; push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/preset-env": "^7.16.7",
     "core-js": "^3.3.6",
     "hammerjs": "^2.0.8",
     "vue": "^2.6.10"
